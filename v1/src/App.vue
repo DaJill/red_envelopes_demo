@@ -1,28 +1,21 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <VuestrapTest></VuestrapTest>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
-
+// import Hello from './components/Hello'
+// import VuestrapTest from './components/VuestrapTest'
+import CUSTOM_STYLE from './assets/custom.sass'
+import ICON_STYLE from './assets/font-awesome-4.7.0/css/font-awesome.min.css'
+// import Bulma from 'bulma'
+// require("style/url!file!./file.css")
 export default {
   name: 'app',
   components: {
-    Hello
+    CUSTOM_STYLE,
+    ICON_STYLE
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
