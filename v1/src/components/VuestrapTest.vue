@@ -1,20 +1,17 @@
 <template>
   <div>
+  <!-- {{tabChangeByRoutePath()}} -->
+    <p class="title">紅包優惠</p>
     <div class="tabs is-boxed is-info">
     <ul>
-      <li class="is-active">
-        <router-link to="/corporateevents">
-          <span>公司活動</span>
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/hallevents">
-          <span>{{msg}}</span>
+      <li v-for="tabEL in tabELs" v-on:click="tabChangeByClick(tabEL)" :class="tabEL.classObj">
+        <router-link :to="tabEL.link">
+          <span :class="tabEL.link">{{tabEL.tab_name}}</span>
         </router-link>
       </li>
     </ul>
     </div>
-    <router-view :msg.sync></router-view>
+    <router-view :msg="msg"></router-view>
   </div>
 
 </template>
@@ -24,8 +21,44 @@ export default {
   name: 'vuestraptest',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      classObject: {
+        active: false,
+        'is-active': true
+      },
+      tabELs: {
+        1: {
+          'link': '/corporateevents',
+          'tab_name': '公司活動',
+          classObj: { 'is-active': true }
+        },
+        2: {
+          'link': '/hallevents',
+          'tab_name': '廳主活動',
+          classObj: { 'is-active': false }
+        }
+      },
+      msg: 'feel so good!'
     }
+  },
+  methods: {
+    tabChangeByClick: function (targeTab) {
+      for (var id in this.tabELs) {
+        this.tabELs[id].classObj['is-active'] = false
+      }
+      targeTab.classObj['is-active'] = true
+    },
+
+    tabChangeByRoutePath: function () {
+      for (var id in this.tabELs) {
+        this.tabELs[id].classObj['is-active'] = false
+        if (this.tabELs[id]['link'] === this.$route.path) {
+          this.tabELs[id].classObj['is-active'] = true
+        }
+      }
+    }
+  },
+  beforeMount () {
+    this.tabChangeByRoutePath()
   }
 }
 

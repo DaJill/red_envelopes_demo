@@ -8,7 +8,6 @@ import VueResource from 'vue-resource'
 import VuestrapTest from './components/VuestrapTest'
 import CorporateEvents from './components/CorporateEvents'
 import HallEvents from './components/HallEvents'
-
 Vue.use(VueRouter)
 Vue.use(VueResource)
 var router = new VueRouter({

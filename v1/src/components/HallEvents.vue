@@ -1,16 +1,20 @@
 <template>
-  <div>
-  <h1>7777</h1>
-  </div>
+  <datepicker format="yyyy-MM-dd" :value="state.date"></datepicker>
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker'
 export default {
   name: 'hallevents',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      state: {
+        date: new Date(2016, 9, 16)
+      }
     }
+  },
+  components: {
+    Datepicker
   }
 }
 

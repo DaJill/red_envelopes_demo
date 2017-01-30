@@ -9,6 +9,7 @@
 // import VuestrapTest from './components/VuestrapTest'
 import CUSTOM_STYLE from './assets/custom.sass'
 import ICON_STYLE from './assets/font-awesome-4.7.0/css/font-awesome.min.css'
+
 // import Bulma from 'bulma'
 // require("style/url!file!./file.css")
 export default {
