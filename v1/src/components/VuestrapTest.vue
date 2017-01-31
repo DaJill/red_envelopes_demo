@@ -40,6 +40,9 @@ export default {
       msg: 'feel so good!'
     }
   },
+  beforeMount () { // document ready
+    this.tabChangeByRoutePath()
+  },
   methods: {
     tabChangeByClick: function (targeTab) {
       for (var id in this.tabELs) {
@@ -47,7 +50,6 @@ export default {
       }
       targeTab.classObj['is-active'] = true
     },
-
     tabChangeByRoutePath: function () {
       for (var id in this.tabELs) {
         this.tabELs[id].classObj['is-active'] = false
@@ -56,9 +58,6 @@ export default {
         }
       }
     }
-  },
-  beforeMount () {
-    this.tabChangeByRoutePath()
   }
 }
 
