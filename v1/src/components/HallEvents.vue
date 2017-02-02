@@ -1,5 +1,9 @@
 <template>
-  <datepicker format="yyyy-MM-dd" :value="state.date"></datepicker>
+  <div>
+    <datepicker format="yyyy-MM-dd" :value="state.date"></datepicker>
+    <!-- {{msg}} -->
+    <a href="/corporateevents">777</a>
+  </div>
 </template>
 
 <script>
@@ -15,6 +19,11 @@ export default {
   },
   components: {
     Datepicker
+  },
+  // props: ['msg'],
+  created: function () { // document ready
+    this.$emit('sendPath', this.$route.path)
+    console.log(this.$route.query.stats)
   }
 }
 

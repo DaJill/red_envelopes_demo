@@ -46,9 +46,80 @@
         </div>
       </nav>
     </article>
-
-    
-    1234
+    <table class="table is-striped">
+      <thead>
+        <tr>
+          <th><abbr title="活動序號">序</abbr></th>
+          <th>設定</th>
+          <th>報表</th>
+          <th>名稱</th>
+          <th>發放時間</th>
+          <th>兌獎時間</th>
+          <th>緊急停止</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th><abbr title="活動序號">序</abbr></th>
+          <th>設定</th>
+          <th>報表</th>
+          <th>名稱</th>
+          <th>發放時間</th>
+          <th>兌獎時間</th>
+          <th>緊急停止</th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr v-for="EventData in EventList">
+          <th><abbr title="活動序號">{{ EventData.EventID }}</abbr></th>
+          <th>
+            <abbr title="設定">
+              <a class="button">
+                <span class="icon">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </span>
+              </a>
+            </abbr>
+          </th>
+          <th>
+            <abbr title="報表">
+              <a class="button">
+                <span class="icon is-small">
+                  <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                </span>
+              </a>
+            </abbr>
+          </th>
+          <th><abbr title="名稱">{{ EventData.EventName }}</abbr></th>
+          <th>
+            <abbr title="發放時間">
+              <span v-if="EventData.Status === 0 " class="tag is-dark">&nbsp;</span>
+              <span v-else-if="EventData.Status === 1 " class="tag is-warning">&nbsp;</span>
+              <span v-else-if="EventData.Status === 2 " class="tag is-success">&nbsp;</span>
+              {{ EventData.EventStartDate }}~{{ EventData.EventEndDate }}
+            </abbr>
+          </th>
+          <th>
+            <abbr title="兌獎時間">
+              <span v-if="EventData.EMS === 1" class="tag is-danger">&nbsp;</span>
+              <span v-else-if="EventData.Status === 0 " class="tag is-dark">&nbsp;</span>
+              <span v-else-if="EventData.Status === 1 " class="tag is-warning">&nbsp;</span>
+              <span v-else-if="EventData.Status === 2 " class="tag is-success">&nbsp;</span>
+              {{ EventData.PayStartDate }}~{{ EventData.PayEndDate }}
+            </abbr>
+          </th>
+          <th>
+            <abbr title="緊急停止">
+              <a v-if="EventData.EMS === 0" class="button">
+                <span class="icon">
+                  <i class="fa fa-ban" aria-hidden="true"></i>
+                </span>
+              </a>
+            </abbr>
+          </th>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -104,24 +175,38 @@ export default {
   methods: {
     searchData: function () {
       // var aParam = {}
-      var sUrl = ''
       if (this.searchTypeData.selected === 'status') {
-        var status = this.searchStatusTypeData.selected
-        sUrl = 'http://localhost:8088/api/event/list/' + status
-      } else if (this.searchTypeData.selected === 'date') {
+        window.location.href = this.$route.path + '?status=' + this.searchStatusTypeData.selected
+        return
+      }
+
+      if (this.searchTypeData.selected === 'date') {
         var startDate = Moment(this.pickDate.start).format('YYYY-MM-DD')
         var endDate = Moment(this.pickDate.end).format('YYYY-MM-DD')
-        sUrl = 'http://localhost:8088/api/event/list/date?start=' + startDate + '&end=' + endDate
+        window.location.href = this.$route.path + '?start=' + startDate + '&end=' + endDate
       }
-      // console.log()
-      this.$http.get(sUrl).then(function (response) {
+    },
+    showHttpData: function (_sUrl) {
+      this.$http.get(_sUrl).then(function (response) {
         var aResponse = response.body
         if (aResponse.event === true) {
           this.EventList = aResponse.data
         }
       })
     }
+  },
+  created: function () { // 建制完以後就會執行以下
+    this.$emit('sendPath', this.$route.path) // 傳自身路徑給父親，這樣tab才會變動
+    var sUrl = ''
+    if (this.$route.query.status) {
+      sUrl = 'http://localhost:8088/api/event/list/' + this.$route.query.status
+      this.showHttpData(sUrl)
+    } else if (this.$route.query.start && this.$route.query.end) {
+      var startDate = this.$route.query.start
+      var endDate = this.$route.query.end
+      sUrl = 'http://localhost:8088/api/event/list/date?start=' + startDate + '&end=' + endDate
+      this.showHttpData(sUrl)
+    }
   }
 }
-
 </script>

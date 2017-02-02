@@ -4,14 +4,16 @@
     <p class="title">紅包優惠</p>
     <div class="tabs is-boxed is-info">
     <ul>
-      <li v-for="tabEL in tabELs" v-on:click="tabChangeByClick(tabEL)" :class="tabEL.classObj">
-        <router-link :to="tabEL.link">
-          <span :class="tabEL.link">{{tabEL.tab_name}}</span>
+      <li v-for="tabEL in tabELs" :class="tabEL.classObj">
+        <!-- <router-link :to="tabEL.link"> -->
+        <router-link :to="{path: tabEL.link}">
+          <span>{{tabEL.tab_name}}</span>
         </router-link>
       </li>
     </ul>
     </div>
-    <router-view :msg="msg"></router-view>
+    <router-view v-on:sendPath="tabChange" :msg="msg"></router-view>
+
   </div>
 
 </template>
@@ -40,20 +42,11 @@ export default {
       msg: 'feel so good!'
     }
   },
-  beforeMount () { // document ready
-    this.tabChangeByRoutePath()
-  },
   methods: {
-    tabChangeByClick: function (targeTab) {
+    tabChange: function (_sRoute) {
       for (var id in this.tabELs) {
         this.tabELs[id].classObj['is-active'] = false
-      }
-      targeTab.classObj['is-active'] = true
-    },
-    tabChangeByRoutePath: function () {
-      for (var id in this.tabELs) {
-        this.tabELs[id].classObj['is-active'] = false
-        if (this.tabELs[id]['link'] === this.$route.path) {
+        if (this.tabELs[id]['link'] === _sRoute) {
           this.tabELs[id].classObj['is-active'] = true
         }
       }
