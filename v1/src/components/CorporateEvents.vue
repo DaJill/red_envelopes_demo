@@ -200,6 +200,7 @@ export default {
     var sUrl = ''
     if (this.$route.query.status) {
       sUrl = 'http://localhost:8088/api/event/list/' + this.$route.query.status
+      this.searchStatusTypeData.selected = this.$route.query.status
       this.showHttpData(sUrl)
     } else if (this.$route.query.start && this.$route.query.end) {
       var startDate = this.$route.query.start

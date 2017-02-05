@@ -51,6 +51,9 @@ export default {
         }
       }
     }
+  },
+  created () { // 建制完以後就會執行以下
+    console.log(this)
   }
 }
 

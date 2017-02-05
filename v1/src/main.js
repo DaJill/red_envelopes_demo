@@ -5,9 +5,20 @@ import App from './App'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+
 import VuestrapTest from './components/VuestrapTest'
+import Hello from './components/Hello'
 import CorporateEvents from './components/CorporateEvents'
 import HallEvents from './components/HallEvents'
+import Tools from './components/Tools'
+
+import EventsRedEnvelopeMain from './components/events/red_envelope/Main'
+import EventsRedEnvelopeCorporate from './components/events/red_envelope/Corporate'
+import EventsRedEnvelopeHall from './components/events/red_envelope/Hall'
+
+Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(VueResource)
 var router = new VueRouter({
@@ -19,7 +30,6 @@ var router = new VueRouter({
       component: VuestrapTest,
       children: [
         {
-          name: 'corporateevents',
           path: 'corporateevents',
           component: CorporateEvents
         },
@@ -28,7 +38,40 @@ var router = new VueRouter({
           component: HallEvents
         }
       ]
+    },
+    {
+      path: '/tool/',
+      component: Tools
+    },
+    {
+      path: '/hello/',
+      component: Hello
+    },
+    {
+      path: '/event/red_envelope/',
+      component: EventsRedEnvelopeMain,
+      children: [
+        {
+          name: 'corporate',
+          path: 'corporate',
+          component: EventsRedEnvelopeCorporate
+        },
+        {
+          name: 'hall',
+          path: 'hall',
+          component: EventsRedEnvelopeHall
+        }
+      ]
+
     }
+    // {
+    //   path: '/event/set/corporate',
+    //   component: SetCorporate
+    // },
+    // {
+    //   path: '/event/set/hall',
+    //   component: SetHall
+    // },
   ]
 })
 // var router = new VueRouter()
