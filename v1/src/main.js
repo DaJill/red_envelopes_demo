@@ -16,6 +16,7 @@ import Tools from './components/Tools'
 
 import EventsRedEnvelopeMain from './components/events/red_envelope/Main'
 import EventsRedEnvelopeCorporate from './components/events/red_envelope/Corporate'
+import EventsRedEnvelopeCorporateCreate from './components/events/red_envelope/CorporateCreate'
 import EventsRedEnvelopeHall from './components/events/red_envelope/Hall'
 
 Vue.use(ElementUI)
@@ -55,6 +56,11 @@ var router = new VueRouter({
           name: 'corporate',
           path: 'corporate',
           component: EventsRedEnvelopeCorporate
+        },
+        {
+          name: 'corporatecreate',
+          path: 'corporatecreate',
+          component: EventsRedEnvelopeCorporateCreate
         },
         {
           name: 'hall',

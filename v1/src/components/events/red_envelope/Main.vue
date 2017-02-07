@@ -1,11 +1,10 @@
 <template>
   <div class="event_red_envelope_main">
-    <el-tabs v-model="nowTab" @tab-click="TabClick">
+    <el-tabs v-model="nowTab" @tab-click="TabClick" type="card">
       <el-tab-pane label="公司活動" name="corporate"/>
       <el-tab-pane label="廳主活動" name="hall"/>
     </el-tabs>
     <router-view @change-name="changeTab"></router-view>
-    {{nowTab}}ha
   </div>
 </template>
 

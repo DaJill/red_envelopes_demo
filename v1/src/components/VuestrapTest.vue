@@ -12,7 +12,7 @@
       </li>
     </ul>
     </div>
-    <router-view v-on:sendPath="tabChange" :msg="msg"></router-view>
+    <router-view @sendPath="tabChange" :msg="msg"></router-view>
 
   </div>
 

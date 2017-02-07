@@ -1,5 +1,6 @@
 <template>
   <div class="event_red_envelope_hall">
+  hallhallhallhallhall
   </div>
 </template>
 
